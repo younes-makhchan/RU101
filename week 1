@@ -1,0 +1,120 @@
+
+####set Key value pairs 
+
+SET key value [NX|XX] [GET]  [EX seconds| PX milleseconds ...] 
+
+NX : set the key if it doesn't exists
+XX: set the key if it does exists 
+EX seconds : EX 3600 
+GET: get the old value (nil) if it doesn't exists 
+
+Exemple: 
+SET name  justin NX 3600
+SET weather:Oaklang sunny EX 3600
+
+just make it more readable when storing
+users:id:followed_by
+
+
+####EXPIRE and TTL 
+EXPIRE weather:Oakland 3600
+TTL weather:Oakland   //check the time remaining to expiry 
+
+note :when you update it without the  expire  , it will be gone -1
+##### key naming convention columns
+
+
+####get the value  by key 
+
+GET key 
+
+Exemple:
+GET name 
+GET view_count:12334 
+
+###increment numbers :
+
+SET view_count 50 
+INCR view_count  
+DECR view_count 
+
+INCRBY view_count number
+DECRBY view_count number
+
+EXEMPLE:
+DECR view_count
+INCRBY view_count 5
+
+
+##HASHES
+#### create  hash 
+HSET key field value [field value...]
+HSETNX
+HGETALL key
+HGET key   field 
+HMGET key field [field...]
+HSCAN key cursor [MATCH patter] [COUNT count]
+HDEL key field [field...]
+
+HINCRBY key field  increment
+HINCRBYFLOAT key field incr
+
+HKEY key
+HVALS key
+
+Exemple:
+HSET player:1 name younes race demon level 1 ressources:gold 20 exp 0
+HGETALL player:1
+HGET player:1 name race
+HDEL player:1 name
+HINCRBY player:1 ressources:wood -20
+
+###LIST
+RPUSH key element [element...]
+LPUSH key element [element...]
+RPOP key  [count]
+LPOP key  [count]
+LRANGE key start stop //[start,stop]
+LLEN key
+brpop key [key...] 60 //bloking rpop empty list wait 60 seconds if something got push pop it 
+LINDEX key index 
+LINSERT key BEFORE|aFter PIVOT VALUE 
+LSET key index value
+LREM key count value
+ltrim key start stop
+####QUOE : 
+RPUSH LPOP
+
+### PILE: 
+RPUSH RPOP
+NOte :set and list redifine each other errors
+EXEMPLE:PLAYLIST 
+RPUSH playlist 25
+RPUSH playlist 72 
+LPOP playlist  2 //ouput 25 45
+LRANGE playlist 0 -1 //O(s+n)
+LRANGE playlist -3 -1 
+LLEN playlist
+brpop playlist 60 // waiting to fill out to pop  !
+
+
+SETS: unique members good for intersaction,difference,union
+
+sadd key member [member...] //add members
+sismember  key member //verify exists
+sscan  key 0 match * //show all elem
+SCARD key //length of set 
+SREM key member [member..] //remove members
+SPOP key [count] // remove members randomly 
+sinter key key [key...] //intersecte between sets 
+sunion key key [key...] //union
+sdiff key key [key...] //sdiff
+note: inter.. are sensitive for bulk data
+EXEMPLE
+sadd skills:suze javascript python redis html 
+sismember skills:suze python // find if she has python
+sinter
+
+
+
+

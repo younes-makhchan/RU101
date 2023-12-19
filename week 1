@@ -111,9 +111,12 @@ sunion key key [key...] //union
 sdiff key key [key...] //sdiff
 note: inter.. are sensitive for bulk data
 EXEMPLE
-sadd skills:suze javascript python redis html 
-sismember skills:suze python // find if she has python
-sinter
+sadd skills:younes javascript python redis html 
+sismember skills:younes python // find if she has python
+
+
+Sorted Sets : 
+ZADD key  [NX|XX] [CH] [INCR] SCORE MEMBER  
 
 
 
